@@ -8,12 +8,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SleepTrackerAppTest {
+
     @Test
     public void testTotalSessions() {
         assertEquals("Общее количество сессий сна: 2", new TotalSessionsFunction().apply(List.of(
                 new SleepingSession(LocalDateTime.now(), LocalDateTime.now(), Quality.GOOD),
                 new SleepingSession(LocalDateTime.now(), LocalDateTime.now(), Quality.GOOD))).toString());
     }
+
     @Test
     public void testTotalSessionsEmpty() {
         assertEquals("Общее количество сессий сна: 0", new TotalSessionsFunction().apply(List.of())
@@ -28,6 +30,7 @@ public class SleepTrackerAppTest {
         assertEquals("Минимальная продолжительность сессии в минутах: 50", new MinDurationFunction()
                 .apply(s).toString());
     }
+
     @Test
     public void testMinDurationSingle() {
         assertEquals("Минимальная продолжительность сессии в минутах: 200", new MinDurationFunction()
@@ -44,6 +47,7 @@ public class SleepTrackerAppTest {
         assertEquals("Максимальная продолжительность сна в минутах: 100", new MaxDurationFunction()
                 .apply(s).toString());
     }
+
     @Test
     public void testMaxDurationSame() {
         assertEquals("Максимальная продолжительность сна в минутах: 100", new MaxDurationFunction()
@@ -61,6 +65,7 @@ public class SleepTrackerAppTest {
         assertEquals("Средняя продолжительность сна в минутах: 150.0", new AverageDurationFunction().apply(s)
                 .toString());
     }
+
     @Test
     public void testAverageDurationSingle() {
         assertEquals("Средняя продолжительность сна в минутах: 150.0", new AverageDurationFunction()
@@ -77,6 +82,7 @@ public class SleepTrackerAppTest {
         assertEquals("Количество сессий с плохим качеством сна: 2", new BadQualityCountFunction().apply(s)
                 .toString());
     }
+
     @Test
     public void testBadQualityNone() {
         assertEquals("Количество сессий с плохим качеством сна: 0", new BadQualityCountFunction()
@@ -91,6 +97,7 @@ public class SleepTrackerAppTest {
                 Quality.GOOD));
         assertEquals("Ваш хронотип: СОВА", new UserTypeFunction().apply(s).toString());
     }
+
     @Test
     public void testUserTypeDove() {
         List<SleepingSession> s = List.of(
@@ -108,6 +115,7 @@ public class SleepTrackerAppTest {
                 Quality.NORMAL));
         assertEquals("Количество бессонных ночей: 1", new SleeplessNightFunction().apply(s).toString());
     }
+
     @Test
     public void testSleeplessNightNone() {
         List<SleepingSession> s = List.of(new SleepingSession(LocalDateTime.of(2025, 10, 3,
