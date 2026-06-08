@@ -20,7 +20,7 @@ public class SleepTrackerApp {
     );
 
     private static List<SleepingSession> loadSessions() {
-        try (Stream<String> lines = Files.lines(Paths.get("src/main/resources/sleep_log.txt"))){
+        try (Stream<String> lines = Files.lines(Paths.get("src/main/resources/sleep_log.txt"))) {
             return lines.map(SleepingSession::fromLogFile)
                     .collect(Collectors.toList());
         } catch (IOException e) {
