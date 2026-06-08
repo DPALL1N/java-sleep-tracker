@@ -19,8 +19,8 @@ public class SleepTrackerApp {
             new UserTypeFunction()
     );
 
-    private static List<SleepingSession> loadSessions() {
-        try (Stream<String> lines = Files.lines(Paths.get("src/main/resources/sleep_log.txt"))) {
+    private static List<SleepingSession> loadSessions(String filePath) {
+        try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
             return lines.map(SleepingSession::fromLogFile)
                     .collect(Collectors.toList());
         } catch (IOException e) {
@@ -30,8 +30,13 @@ public class SleepTrackerApp {
     }
 
     public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Ошибка: не указан путь к файлу.");
+            return;
+        }
 
-        List<SleepingSession> sessions = loadSessions();
+        String filePath = args[0];
+        List<SleepingSession> sessions = loadSessions(filePath);
 
         FUNCTION.forEach(function -> System.out.println(function.apply(sessions)));
 
